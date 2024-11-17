@@ -1,11 +1,10 @@
 ---
-title: 'Future Blog Post'
-date: 2199-01-01
-permalink: /posts/2012/08/blog-post-4/
+title: 'Future Blog Post Plan'
+date: 2024-12-31
+permalink: /blog/futureplan/
 tags:
-  - cool posts
-  - category1
-  - category2
+  - plan
+
 ---
 
-This post will show up by default. To disable scheduling of future posts, edit `config.yml` and set `future: false`. 
+<strong>I will upload my study notes to my personal blog one after another!<strong>
