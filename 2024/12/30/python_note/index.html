@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="python相关 python 转二进制：output &#x3D; “{0:b}”.format(int_value); bs &#x3D; “1010” int_value &#x3D; int(bs, 2) 注意, &#x2F;&#x2F; 符号是取整 python中，round(4.5)&#x3D;4, round(4.51)&#x3D;5, int(4.7)&#x3D;4, int(4.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Note">
+<meta property="og:url" content="http://example.com/2024/12/30/python_note/index.html">
+<meta property="og:site_name" content="MSZ006&#39;s Cockpit">
+<meta property="og:description" content="python相关 python 转二进制：output &#x3D; “{0:b}”.format(int_value); bs &#x3D; “1010” int_value &#x3D; int(bs, 2) 注意, &#x2F;&#x2F; 符号是取整 python中，round(4.5)&#x3D;4, round(4.51)&#x3D;5, int(4.7)&#x3D;4, int(4.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-30T19:02:51.169Z">
+<meta property="article:modified_time" content="2024-12-30T19:20:46.421Z">
+<meta property="article:author" content="Flynn Fu">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/12/30/python_note/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/12/30/python_note/","path":"2024/12/30/python_note/","title":"Python Note"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python Note | MSZ006's Cockpit</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MSZ006's Cockpit</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About me</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">python相关</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Flynn Fu"
+      src="/images/avatar_msz006.jpg">
+  <p class="site-author-name" itemprop="name">Flynn Fu</p>
+  <div class="site-description" itemprop="description">No because they are easy, but because they are hard</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MSZ-006V" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MSZ-006V" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/ymrenfu@gmail.com" title="E-Mail → ymrenfu@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yinmingren-fu-msz006/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yinmingren-fu-msz006&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/files/Resume.pdf" title="Resume → files&#x2F;Resume.pdf" rel="noopener me"><i class="fa fa-file fa-fw"></i>Resume</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/30/python_note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_msz006.jpg">
+      <meta itemprop="name" content="Flynn Fu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MSZ006's Cockpit">
+      <meta itemprop="description" content="No because they are easy, but because they are hard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python Note | MSZ006's Cockpit">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Note
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-12-30 11:02:51 / Modified: 11:20:46" itemprop="dateCreated datePublished" datetime="2024-12-30T11:02:51-08:00">2024-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="python相关"><a href="#python相关" class="headerlink" title="python相关"></a>python相关</h1><ol>
+<li>python 转二进制：output &#x3D; “{0:b}”.format(int_value); bs &#x3D; “1010” int_value &#x3D; int(bs, 2) 注意, &#x2F;&#x2F; 符号是取整</li>
+<li>python中，round(4.5)&#x3D;4, round(4.51)&#x3D;5, int(4.7)&#x3D;4, int(4.3)&#x3D;4,int()可以实现向下取整 7&#x2F;&#x2F;2&#x3D;3, 5&#x2F;&#x2F;2&#x3D;2<ul>
+<li>在python中，整数除法是向下取整的，而不是向0取整，比如-3&#x2F;2 &#x3D; -2</li>
+<li>可以使用int(num1 &#x2F; float(num2)), 这时int(-3 &#x2F; float(2)) &#x3D; -1<span id="more"></span></li>
+</ul>
+</li>
+<li>str1[::-1] 可以反转原字符串str1，可以用来判断回文序列，或者也可以使用双指针来判断</li>
+<li>数组插入方法：insert(index, element)，在数组头部进行插入，就是insert(0, value)</li>
+<li>使用如下语句进行递增排序：data &#x3D; sorted(data, key&#x3D; lambda x:x)<ul>
+<li>使用data &#x3D; sort(key &#x3D; lambda x:(-x[0], x[1])), 是可以对一个元组进行排序，当x[0]相同的时候，就对x[1]进行增序排序，当x[0]不相同的时候，对x[0]进行降序排序，因为有个负号</li>
+</ul>
+</li>
+<li>同时遍历数组中每一个元素的下标和值： for index, value in enumerate(data), index为下标，value为值</li>
+<li>python中dict()是一个字典，储存[key, value]类型的键值对，可以快速查找<ul>
+<li>使用方法：my_dict &#x3D; {}, my_dict[‘key1’] &#x3D; 1, my_dict[‘key2’] &#x3D; 2</li>
+<li>通过my_dict.get(‘key1’) is None 来判断键是否存在，或者if ‘key1’ in my_dict</li>
+<li>遍历：for key, value in my_dict.items(), for key in my_dict:, for value in my_dict.values():</li>
+<li>my_dict.get(key, 0)可以在字典中查找key，若没找到，就返回默认值0</li>
+</ul>
+</li>
+<li>删除字符串中的写法：string &#x3D; string.replace(“IX”, “”)</li>
+<li>在python中，调用递归函数：self.func()</li>
+<li>在python中，调用一个类中的函数，要使用self.function(parameter)的格式</li>
+<li>要灵活运用python中类似表达式：list &#x3D; [int(digit) for digit in int(int_value)] &#x2F;&#x2F; list &#x3D; [ [0] for _ in range(numRows)]</li>
+<li>ord(‘a’) &#x3D; 97, 代表a的ASCII编码，ord(‘b’) &#x3D; 98, chr(98) &#x3D; ‘b’</li>
+<li>注意Python中自带的一些函数，如zip()函数相关的打包和解压*操作，list(), set()函数等</li>
+<li>对于第一个节点是空节点的链表，遍历：while current.next is not None: print(current.next.val) current &#x3D; current.next。正好可以访问全部链表，而已避免访问了头结点<ul>
+<li>同时，在单链表中，可以使用虚拟的头结点，比如dummy_head &#x3D; Listnode(0, head)，然后就可以使用上面的方法进行遍历，同时还能避免访问虚拟的头结点</li>
+</ul>
+</li>
+<li>python中的set()代表一个集合，表示无序不重复的序列，set的作用可以用来给数据去重<ul>
+<li>创建：my_set &#x3D; set(), my_set &#x3D; set((1, 2, 3, 4, 1))</li>
+<li>使用减号可以求两个set的差集，</li>
+<li>增删改查：当向set插入一个字符串，会进行拆分，拆为单个字母。有add(), update()方法，remove()方法</li>
+</ul>
+</li>
+<li>python中的栈<ul>
+<li>可以使用stack &#x3D; [], 进栈append(), 出栈pop()</li>
+</ul>
+</li>
+<li>python中的队列<ul>
+<li>使用import collections, queue &#x3D; collections.deque()来进行实现</li>
+<li>入队append(), 出队queue.popleft()</li>
+</ul>
+</li>
+<li>python的heapq类<ul>
+<li>默认是小根堆，含有heappush，heappop等方法<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">heap = []</span><br><span class="line">arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">heapq.heappush(heap, arr[i])</span><br><span class="line">heapq.heapify(arr) <span class="comment"># 直接将一个列表变为一个小根堆，直接进行了堆排序</span></span><br><span class="line">heapq.heappop(heap) <span class="comment"># 弹出一个元素，最小堆弹出最小的</span></span><br><span class="line">```  </span><br><span class="line">- 可以用小根堆来构建大根堆，即插入负数</span><br><span class="line">```python</span><br><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line">heap_min=[<span class="number">1</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>]</span><br><span class="line">heapq.heapify(heap_min)</span><br><span class="line">heap_max = [(-i, heap_min[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(heap_min))]</span><br><span class="line"><span class="built_in">print</span>(heap_max,<span class="string">&#x27;插入负数后的小根堆&#x27;</span>)</span><br><span class="line">heapq.heapify(heap_max) <span class="comment">#以插入的负数做小根堆，越大的数字插入的负数就越小，所以这样就相当于做了大根堆, 此时已经按照第一个值变成了小顶堆，即变成了逆序</span></span><br><span class="line">max_heap = <span class="built_in">list</span>()</span><br><span class="line"><span class="keyword">while</span> heap_max:</span><br><span class="line">    _, value = heapq.heappop(heap_max) <span class="comment">#删除并返回 newl中的最小元素</span></span><br><span class="line">    max_heap.append(value)</span><br><span class="line"><span class="built_in">print</span>(max_heap,<span class="string">&#x27;输出的大根堆&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>在python一个函数内部写函数的写法：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func1</span>(<span class="params">self, root</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">func2</span>(<span class="params">root</span>):</span><br><span class="line">        do something</span><br><span class="line">    </span><br><span class="line">    func2(root)</span><br></pre></td></tr></table></figure></li>
+<li>在递归函数中<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果像下面这么写是不对的</span></span><br><span class="line"><span class="keyword">if</span> k == <span class="number">0</span>:</span><br><span class="line">    <span class="variable language_">self</span>.result.append(temp_result)</span><br><span class="line"><span class="comment"># 应该修改为</span></span><br><span class="line">    <span class="variable language_">self</span>.result.append(temp_result[:])</span><br><span class="line"><span class="comment"># 像第一种写法，添加的是temp_result的一个引用，而[:]添加的是一个副本</span></span><br></pre></td></tr></table></figure></li>
+<li>ASCII中，0到9的号码是从48-57。大写A到大写Z的号码从65-90，小写a到小写z的号码从97-122。数字比字母都要小，大写字母的序号 &#x3D; 小写字母序号 - 32。<br>在c++中，大小写字符相互转换如下<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">char</span> <span class="title">changeChar</span><span class="params">(<span class="type">char</span> &amp; a)</span> </span>&#123; <span class="comment">// 小写变大写</span></span><br><span class="line">    <span class="keyword">if</span> (a &gt;= <span class="string">&#x27;a&#x27;</span> &amp;&amp; a &lt;= <span class="string">&#x27;z&#x27;</span>) a -= <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+在Python中，大小写字符相互转换如下<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># upper() 转换大写</span></span><br><span class="line"><span class="comment"># lower() 转换小写</span></span><br><span class="line">char = <span class="string">&#x27;a&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(char.upper())</span><br><span class="line">char = <span class="string">&#x27;A&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(char.lower())</span><br></pre></td></tr></table></figure></li>
+<li><code>str.join(iterable)</code>是一个字符串方法，可以将可迭代对象（列表，元组）等连接为一个字符串，str是一个可分隔字符串，可以是<code>&#39;&#39; or &#39; &#39;</code>, iterable是一个包含需要连接的字符串元素的可迭代对象，用法如下<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] <span class="comment"># 连接非字符串元素，需要转换为字符串元素，join只能处理字符串类型</span></span><br><span class="line">    result = <span class="string">&#x27;, &#x27;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, numbers)) <span class="comment"># 输出1, 2, 3</span></span><br><span class="line">    result = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">str</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)) <span class="comment"># 使用生成器表达方式</span></span><br><span class="line">    <span class="built_in">print</span>(result)  <span class="comment"># 输出: &#x27;01234&#x27;</span></span><br><span class="line"><span class="number">23.</span> python常用最大值</span><br><span class="line">    ```python</span><br><span class="line">    max_v = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/29/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-angle-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/12/30/Java_note/" rel="next" title="Java Note">
+                  Java Note <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Flynn Fu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="待练习的知识点 动态规划（设备更新问题） 前缀和相关问题 AWS mongoDB 位运算  算法实用小知识 对于一个数组中出现次数最多的一个数，设数组长度为n，假如这个数出现次数大于$\frac{n}{2}$，那么，num[n&#x2F;2]一定就是这个数，这个性质也是众数的性质。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode Note">
+<meta property="og:url" content="http://example.com/2024/12/30/leetcode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="MSZ006&#39;s Cockpit">
+<meta property="og:description" content="待练习的知识点 动态规划（设备更新问题） 前缀和相关问题 AWS mongoDB 位运算  算法实用小知识 对于一个数组中出现次数最多的一个数，设数组长度为n，假如这个数出现次数大于$\frac{n}{2}$，那么，num[n&#x2F;2]一定就是这个数，这个性质也是众数的性质。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/12/30/leetcode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/image/bit_count.png">
+<meta property="article:published_time" content="2024-12-30T19:02:59.425Z">
+<meta property="article:modified_time" content="2024-12-30T19:20:37.513Z">
+<meta property="article:author" content="Flynn Fu">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/12/30/leetcode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/image/bit_count.png">
+
+
+<link rel="canonical" href="http://example.com/2024/12/30/leetcode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/12/30/leetcode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/","path":"2024/12/30/leetcode算法笔记/","title":"Leetcode Note"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Leetcode Note | MSZ006's Cockpit</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MSZ006's Cockpit</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About me</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%85%E7%BB%83%E4%B9%A0%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">待练习的知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%94%A8%E5%B0%8F%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">算法实用小知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode%E5%81%9A%E9%A2%98%E7%AC%94%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">LeetCode做题笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">LeetCode问题</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Flynn Fu"
+      src="/images/avatar_msz006.jpg">
+  <p class="site-author-name" itemprop="name">Flynn Fu</p>
+  <div class="site-description" itemprop="description">No because they are easy, but because they are hard</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MSZ-006V" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MSZ-006V" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/ymrenfu@gmail.com" title="E-Mail → ymrenfu@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yinmingren-fu-msz006/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yinmingren-fu-msz006&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/files/Resume.pdf" title="Resume → files&#x2F;Resume.pdf" rel="noopener me"><i class="fa fa-file fa-fw"></i>Resume</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/30/leetcode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_msz006.jpg">
+      <meta itemprop="name" content="Flynn Fu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MSZ006's Cockpit">
+      <meta itemprop="description" content="No because they are easy, but because they are hard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Leetcode Note | MSZ006's Cockpit">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Leetcode Note
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-12-30 11:02:59 / Modified: 11:20:37" itemprop="dateCreated datePublished" datetime="2024-12-30T11:02:59-08:00">2024-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="待练习的知识点"><a href="#待练习的知识点" class="headerlink" title="待练习的知识点"></a>待练习的知识点</h1><ul>
+<li>动态规划（设备更新问题）</li>
+<li>前缀和相关问题</li>
+<li>AWS</li>
+<li>mongoDB</li>
+<li>位运算</li>
+</ul>
+<h1 id="算法实用小知识"><a href="#算法实用小知识" class="headerlink" title="算法实用小知识"></a>算法实用小知识</h1><ul>
+<li>对于一个数组中出现次数最多的一个数，设数组长度为n，假如这个数出现次数大于$\frac{n}{2}$，那么，num[n&#x2F;2]一定就是这个数，这个性质也是众数的性质。<span id="more"></span></li>
+</ul>
+<h1 id="LeetCode做题笔记"><a href="#LeetCode做题笔记" class="headerlink" title="LeetCode做题笔记"></a>LeetCode做题笔记</h1><ul>
+<li><p><strong>滑动窗口的思想</strong>：即可以使用一个队列，模拟一个滑动的窗口，不停地在一个字符串或者数组中滑动。滑动窗口最后的位置，可以不是最优的一个序列或者是其他的东西，滑动窗口最后的位置并没有多大关系，滑动窗口可以只起到一个遍历的作用，并不需要最后缩小到一个最优的序列。  </p>
+<ul>
+<li>在使用滑动窗口找最大或最小的时候，只需要记录目前最大或最小即可，滑动窗口最后并不需要指向最大或最小的那个序列</li>
+<li>在使用滑动窗口找最好的那个序列的时候，如果最后需要输出这个序列，那么滑动窗口最后是要指向那个最好的序列的</li>
+<li>题型：无重复字符串的最小子串，最小覆盖子串，最多包含k个字符的最长子串，反正是跟区间有关的题目</li>
+<li>可以参考题713，209, 1297，也是滑动窗口的题目。基本思路就是遍历右端点right，right会和左端点left配合形成一个窗口区间，对这个区间执行某些判断条件，使用while循环移动left左端点。保证区间的某些特性。在这种情况下，left一般情况下都永远不会比right大，还可以少写一些判断条件<ul>
+<li>题单：713，209, 1297，1151</li>
+<li>右端点右移，导致窗口扩大，是不满足条件的罪魁祸首；</li>
+<li>左端点右移目的是为了缩小窗口，重新满足条件</li>
+<li>维护一个有条件的滑动窗口；<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// question 209</span></span><br><span class="line"><span class="type">int</span> ans = nums.<span class="built_in">size</span>() + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> right = <span class="number">0</span>; right &lt; nums.<span class="built_in">size</span>(); ++right)&#123;</span><br><span class="line">  sum += nums[right];</span><br><span class="line">  <span class="keyword">while</span>(sum &gt;= target)&#123;</span><br><span class="line">      ans = <span class="built_in">min</span>(ans, right - left + <span class="number">1</span>);</span><br><span class="line">      sum -= nums[left];</span><br><span class="line">      left++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> ans == nums.<span class="built_in">size</span>() + <span class="number">1</span>?<span class="number">0</span>:ans;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>双指针</strong>：即一个fast指针和一个slow指针，fast指针主要用处是进行遍历，找到符合条件的元素或者其他。slow指针可以指向可以进行修改的地方，或者是指向要进行操作的位置。</p>
+<ul>
+<li>题型：删除一个数组中的重复元素，移除数组元素, 盛水最多的容器</li>
+</ul>
+</li>
+<li><p><strong>回溯</strong>，动态规划好题：22.括号生成, 17.电话号码组成</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">stack = [(<span class="string">&quot;&quot;</span>, <span class="number">0</span>)]</span><br><span class="line"><span class="keyword">while</span> stack:</span><br><span class="line">    current, current_index = stack.pop()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">len</span>(current) == length):</span><br><span class="line">        ans.append(current)</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">    index = digits[current_index]</span><br><span class="line">    letter_list = num_list[<span class="built_in">int</span>(index)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(letter_list)):</span><br><span class="line">        stack.append((current + letter_list[i], current_index + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">ans = []</span><br><span class="line">stack = [(<span class="string">&quot;&quot;</span>, <span class="number">0</span>, <span class="number">0</span>)]  <span class="comment"># 初始化栈，存储初始状态：当前字符串，左括号计数，右括号计数</span></span><br><span class="line"><span class="keyword">while</span> stack:</span><br><span class="line">    current, left, right = stack.pop()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(current) == n * <span class="number">2</span>:</span><br><span class="line">        ans.append(current)</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> left &lt; n:</span><br><span class="line">        stack.append((current + <span class="string">&quot;(&quot;</span>, left + <span class="number">1</span>, right))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> right &lt; left:</span><br><span class="line">        stack.append((current + <span class="string">&quot;)&quot;</span>, left, right + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">ans = []</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bracket_search</span>(<span class="params">answer, left, right</span>):</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">len</span>(answer) == n * <span class="number">2</span>):</span><br><span class="line">        ans.append(<span class="string">&quot;&quot;</span>.join(answer))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span>(left &lt; n):</span><br><span class="line">        answer.append(<span class="string">&quot;(&quot;</span>)</span><br><span class="line">        bracket_search(answer, left + <span class="number">1</span>, right)</span><br><span class="line">        answer.pop()</span><br><span class="line">    <span class="keyword">if</span>(right &lt; left):</span><br><span class="line">        answer.append(<span class="string">&quot;)&quot;</span>)</span><br><span class="line">        bracket_search(answer, left, right + <span class="number">1</span>)</span><br><span class="line">        answer.pop()</span><br><span class="line"></span><br><span class="line">bracket_search([], <span class="number">0</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>排列问题，组合问题的去重。<strong>注意传入的数组一定是已经排序过后的</strong></p>
+</li>
+<li><p>排序算法：Python：sorted(nums), CPP: sort(nums.begin(), nums.end())</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 核心代码</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">  <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i - <span class="number">1</span>]:</span><br><span class="line">      <span class="keyword">continue</span></span><br><span class="line">  <span class="comment"># 其他版本</span></span><br><span class="line">  <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i - <span class="number">1</span>] <span class="keyword">and</span> used[i - <span class="number">1</span>] == <span class="number">0</span> <span class="comment"># 全排列II问题, Q47</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 有Startindex版本</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(startindex, <span class="built_in">len</span>(nums)): <span class="comment"># 组合总和II，Q40</span></span><br><span class="line">  <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i - <span class="number">1</span>]:</span><br><span class="line">      <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为nums数组是已经排序的，比如在0位置的1已经使用过了</span></span><br><span class="line"><span class="comment"># 第二次循环开始，startindex=0，当遍历到第二个1的时候，就会触发下面的if语句</span></span><br><span class="line"><span class="comment"># 从而跳过第二个1，第三个或者第四个同理，这样子就避免了重复的组合</span></span><br><span class="line"><span class="comment"># 主要原因还是因为nums数组是已经进行排序过后的</span></span><br><span class="line"><span class="comment"># i &gt; startindex 或 i &gt; 0的原因是保证遍历到的是重复的</span></span><br><span class="line"><span class="comment"># 而nums[i]==nums[i-1]保证可以遍历到重复的元素</span></span><br><span class="line"><span class="comment"># 这两个进行结合，保证不会重读进行遍历</span></span><br></pre></td></tr></table></figure></li>
+<li><p>图论：</p>
+<ul>
+<li>一般使用DFS或者BFS进行搜索</li>
+<li>对于在一个无向图中搜索一条最短路径，可以使用BFS算法进行搜索，因为当BFS搜索到终点的时候，一定是一条最短路径</li>
+</ul>
+</li>
+</ul>
+<h2 id="LeetCode问题"><a href="#LeetCode问题" class="headerlink" title="LeetCode问题"></a>LeetCode问题</h2><ul>
+<li><p>45.跳跃游戏， 没搞懂为什么要遍历整个数组，思考后个人觉得应该只要遍历有限的点的个数应该就可以，已解决（2024.6.5）<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/jump-game-ii/">https://leetcode.cn/problems/jump-game-ii/</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">jump_num = <span class="number">0</span> <span class="comment"># 跳跃次数</span></span><br><span class="line">max_pos = <span class="number">0</span> <span class="comment"># 最大到达范围</span></span><br><span class="line">next_pos = <span class="number">0</span> <span class="comment"># 跳跃到的下一个位置</span></span><br><span class="line">index = <span class="number">0</span> <span class="comment"># 起跳位置</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">1</span>: <span class="comment"># 如果数组长度为1，不需要跳跃，返回跳跃次数0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(index &lt; <span class="built_in">len</span>(nums) - <span class="number">1</span>): <span class="comment"># 当起跳位置不是最终的位置的时候，进行循环</span></span><br><span class="line">    <span class="keyword">if</span> index + nums[index] &gt;= <span class="built_in">len</span>(nums) - <span class="number">1</span>: <span class="comment"># 若当前起跳的位置，可到达的范围大于终点，直接返回跳跃次数 + 1，这一步是为了防止下面的for循环中i的越界</span></span><br><span class="line">        <span class="keyword">return</span> jump_num + <span class="number">1</span></span><br><span class="line">    max_pos = <span class="number">0</span> <span class="comment"># 每次循环进行刷新</span></span><br><span class="line">    <span class="comment"># 对于当前起跳位置，贪心的寻找跳跃位置的最大覆盖范围，即最理想的可以调到最远的下一个点。在当前起跳位置，可以跳到的点范围是index + 1, index + 1 + nums[index]，对这些进行遍历，同时计算nums[i] + i，即最大的到达范围，不断更新，并记录下标next_pos, 注意if语句是&gt;=的</span></span><br><span class="line">    <span class="keyword">for</span> i  <span class="keyword">in</span> <span class="built_in">range</span>(index + <span class="number">1</span>, index + nums[index] + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> nums[i] + i &gt;= max_pos:</span><br><span class="line">            next_pos = i</span><br><span class="line">            max_pos = nums[i] + i</span><br><span class="line"></span><br><span class="line">    jump_num += <span class="number">1</span> <span class="comment"># 进行完上面的步骤后，将跳跃次数 + 1</span></span><br><span class="line">    index = next_pos <span class="comment"># 更新下一次的跳跃位置</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;jump_num&quot;</span>, jump_num)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;jump_start&quot;</span>, index)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;max_pos_end&quot;</span>, max_pos)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">return</span> jump_num</span><br></pre></td></tr></table></figure></li>
+<li><p>判断出栈序列合法性</p>
+<ol>
+<li>将需要入栈时的1至n个数依次进入栈中。</li>
+<li>当模拟栈中的栈顶数字不等于题目所给的数字序列的开头时，继续进行下一个数字的进入。</li>
+<li>当模拟栈中的栈顶数字等于题目所给的数字序列的开头时，栈和数字序列的首数字同时出栈，之后，再进行下一个首数字的比较，反复2、3过程。</li>
+<li>当n个数字均已进行了入栈操作后，判断栈中的元素是否为空，若为空，说明数字序列合法，若不为空，说明数字序列不合法。</li>
+</ol>
+</li>
+<li><p>代码随想录-贪心算法-14到19题，都是区间的相关的题，都是比较巧妙地贪心算法，可以多看看</p>
+<ul>
+<li>大致做法为先对区间的第一个元素或者第二个元素进行排序，当完成排序后，遍历一遍，可以做一些相关的操作</li>
+<li>具体的操作有：合并区间，找最大区间范围，删除重叠区间</li>
+</ul>
+</li>
+<li><p>卡特兰数<br>$$ h(0)&#x3D;1, h(1) &#x3D; 1, h(2)&#x3D;2$$<br>$$ h(n) &#x3D; h(0)*h(n-1)+h(1)*h(n-2)+…+h(n-1)*h(0),  n &gt; 2$$<br>便于进行计算的定义如下<br>$$ C_0 &#x3D; 1, C_{n+1}&#x3D;\frac{2(2n+1)}{n+2}C_n$$<br>$$C_n&#x3D;\frac{1}{n+1}\binom{2n}{n},\ 渐近表达为\frac{4^n}{\sqrt{t}}$$</p>
+</li>
+<li><p>01背包问题及完全背包问题模板代码(一维二维数组)<br>假设有3件物品，物品1价值15，重量1，物品2价值20，重量3，物品3价值30，重量4。背包最大重量为4<br>物品为两个数组，weight:{1, 3, 4}, value{15, 20, 30}</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">package01</span>(): <span class="comment"># 01背包问题</span></span><br><span class="line">  <span class="comment"># 二维数组</span></span><br><span class="line">  m = <span class="number">3</span> <span class="comment"># 物品数量为3</span></span><br><span class="line">  n = <span class="number">4</span> <span class="comment"># 背包最大重量为4</span></span><br><span class="line">  dp = [[<span class="number">0</span>] * (n + <span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>)] <span class="comment"># 4 * 5的一个二维数组</span></span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n, weight[<span class="number">0</span>] - <span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">    dp[<span class="number">0</span>][j] = value[<span class="number">0</span>]</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m + <span class="number">1</span>): <span class="comment"># 从物品2开始，因为物品1在初始化里面已经处理过</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n + <span class="number">1</span>): <span class="comment"># 正常的从0开始</span></span><br><span class="line">      dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br><span class="line">      <span class="keyword">if</span> j &gt;= weight[i]:</span><br><span class="line">        dp[i][j] = dp[i - <span class="number">1</span>][j - weight[i]] + value[i]</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 一维数组</span></span><br><span class="line">  dp = [<span class="number">0</span>] * (n + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n, weight[i] - <span class="number">1</span>, -<span class="number">1</span>): <span class="comment"># 从后序开始遍历, 因为如果从前序开始遍历，可能会访问到已经被修改过的数据，而不是上一个物品的数据了</span></span><br><span class="line">      dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">packagecomplete</span>(): <span class="comment"># 完全背包问题</span></span><br><span class="line">  <span class="comment"># 参数相同，同有weight，value数组，只不过每个物品的数量是无限的</span></span><br><span class="line">  dp = [<span class="number">0</span>] * (n + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(weight[i], n + <span class="number">1</span>): <span class="comment"># 从前序开始遍历，从当前物品的重量遍历到背包最大重量，在遍历顺序上与01背包问题不同</span></span><br><span class="line">      dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i])</span><br><span class="line">  <span class="comment"># 对于完全背包问题，for循环的顺序是可以颠倒的</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">multipackage</span>(): <span class="comment"># 多重背包问题</span></span><br><span class="line">  <span class="comment"># 多重背包问题，代表背包中的每个物品的数量可能不是1，但是也不是无限</span></span><br><span class="line">  <span class="comment"># 可以将多重背包问题转换为01背包问题，即将重复的物品放入weight和value数组即可</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 假设有weight, value, num(物品数量）三个数据</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N): <span class="comment"># 遍历物品数量</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(M, weight[i] - <span class="number">1</span>, -<span class="number">1</span>): <span class="comment"># 遍历背包，倒序遍历，避免覆盖</span></span><br><span class="line">      <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, num[i] + <span class="number">1</span>) <span class="comment"># 遍历物品个数，从1遍历到物品最大个数</span></span><br><span class="line">        dp[j] = <span class="built_in">max</span>(dp[j], dp[j - (k * weight[i])] + (k * value[i]))</span><br><span class="line">        <span class="comment"># 当k为1的时候，就是正常的01背包，当k继续递增，就是多重背包问题</span></span><br><span class="line">  <span class="keyword">return</span> dp[M]</span><br></pre></td></tr></table></figure>
+<p><strong>注意，可以使用完全背包的方法来求排列数或者是组合数</strong></p>
+<ul>
+<li><strong>当求组合数（顺序无关）的时候外层for遍历物品，内层for遍历背包容量</strong></li>
+<li><strong>当求排列数（顺序有关）的时候外层for遍历背包容量，内层for遍历物品</strong></li>
+<li><strong>当顺序无关的时候，先遍历背包容量或物品，都是可以的，可以进行颠倒</strong></li>
+</ul>
+</li>
+<li><p>注意，子数组和子序列不相同。子数组必须是连续的，子序列可以不是连续的。参考leetcode718题和1143题</p>
+</li>
+<li><p>位运算</p>
+<ul>
+<li>可以用二进制来表示一个集合，比如二进制从低到高第 i 位为 1，表示 i 在集合中，为 0，表示 i 不在集合中。以下例子使用集合{0, 2, 3} &#x3D; 1101和 {0, 1, 2} &#x3D; 0111  <ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/circle/discuss/CaOJ45/">https://leetcode.cn/circle/discuss/CaOJ45/</a> 灵神的笔记  <div style="text-align: center;">
+<img src="image\bit_count.png" alt="description" >
+</div></li>
+<li>直接打开进行复习比较方便</li>
+</ul>
+</li>
+<li>异或运算，可以针对一些特殊问题，如leetcode136题，使用异或就可以运算<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异或运算</span></span><br><span class="line"><span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> c = a ^ b; <span class="comment">// ^ 就是异或运算</span></span><br><span class="line"><span class="type">int</span> d = (a ^ b) &amp; <span class="number">1</span>; <span class="comment">// 如果d为1，那么a和b的奇偶性不同，为0奇偶性相同</span></span><br><span class="line"><span class="comment">// 奇偶数二进制的表达主要在于最后一位，最后一位为1则为奇数，最后一位为0则为偶数</span></span><br><span class="line"><span class="comment">// 若一个奇数和一个偶数异或，最后一位变为1，再与1进行和运算&amp;，就得到1，表示奇偶性不同</span></span><br></pre></td></tr></table></figure></li>
+<li>计算一个数二进制形式下的 1 的个数<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// n &amp; (n - 1) 的效果是每次使得n的二进制形式中最低位的1变成0</span></span><br><span class="line"><span class="comment">// 直到n的二进制形式的所有1都变成0，n变为0就结束循环，count就会统计变了几次，即有多少个1</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">count</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(n)&#123;</span><br><span class="line">      n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">      count++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// n为正整数，且n的二进制表示中只有一个1的话，那么n一定是2的幂（2^i）</span></span><br><span class="line">N &gt; <span class="number">0</span> &amp;&amp; n &amp; (n - <span class="number">1</span>) == <span class="number">0</span> <span class="comment">// n就是2的幂</span></span><br><span class="line">n &gt; <span class="number">0</span> &amp;&amp; (n &amp; -n) == n; <span class="comment">// n就是2的幂</span></span><br><span class="line"><span class="type">int</span> lb = n &amp; -n; <span class="comment">// 取出n的二进制表达式最后一个1，比如是1100的话，就会取出100，即值为4</span></span><br><span class="line">n = n ^ lb; <span class="comment">// 这步操作就会把最后一个1的位置变为0（异或），比如1100 ^ 100 = 1000</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>单调栈类型问题(monotonic stack)</p>
+<ul>
+<li>当通常是一维数组，需要找到上一个更大（小）的元素，或者找到下一个更大（小）的元素，此时我们就要想到可以用单调栈了。时间复杂度为O(n)。</li>
+<li>如果求右边更大的数，从栈顶到栈底是递增序列，同时从后往前遍历</li>
+<li>如果求右边更小的数，从栈顶到栈底是递减序列，同时从前往后遍历</li>
+<li>经典题目：42接雨水，84柱状图中最大的矩形，739每日温度</li>
+<li>可以看成是一座山，更高的山会遮住矮的山，那些矮的山就没有必要继续看了，就可以出栈丢掉</li>
+<li>单调栈可以理解为一个遮挡的问题，比如一座山，可以从前往后遍历，找到第一个比它大的数。也可以从后往前遍历，找到第一个比它小的数。因为高的山会遮挡矮的山，矮的山被遮挡了就相当于没用的数据了。</li>
+<li>所以单调栈的细节就是及时把没用的数据出栈并进行对应处理</li>
+</ul>
+</li>
+<li><p>单调队列(monotonic queue)</p>
+<ul>
+<li>例题：239滑动窗口最大值</li>
+<li>思路和单调栈类似，都是及时去除无用的元素，然后压入新的元素。及时把无用数据出队并作相应处理</li>
+<li>可以看成是一座山，遮挡类型的问题</li>
+<li>数据结构可以使用双端队列（std::list）涉及操作详见cpp_note</li>
+</ul>
+</li>
+<li><p>同余定理</p>
+<ul>
+<li>对于两个数a和b，如果(a - b) mod k &#x3D; 0, 则有 a mod k 等于 b mod k</li>
+</ul>
+</li>
+<li><p>前缀和（prefix sum）</p>
+<ul>
+<li>可以参考leetcode930,560，1524,974，数组前缀和的经典例题</li>
+<li>前缀和+哈希表的使用方法比较经典</li>
+</ul>
+</li>
+<li><p>并查集</p>
+<ul>
+<li>参考leetcode684,685冗余连接系列问题</li>
+</ul>
+</li>
+<li><p>二分查找的进阶应用（非常难！常看常新）</p>
+<ul>
+<li>参考leetcode34：在排序数组中寻找元素的第一个和最后一个位置</li>
+<li>熟练使用ranges::lower_bound, ranges::upper_bound()</li>
+<li>二分查找：<strong>lc2856</strong></li>
+<li>找最小：lc1011货运最小重量</li>
+<li>找最大<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 二分查找相关函数ranges::lower_bound(), ranges::upper_bound();</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;ranges&gt;</span></span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; nums;</span><br><span class="line"><span class="type">int</span> target;</span><br><span class="line">ranges::<span class="built_in">lower_bound</span>(nums, target); <span class="comment">// 返回指向第一个不小于（大于等于）target的元素的迭代器</span></span><br><span class="line">ranges::<span class="built_in">upper_bound</span>(nums, target); <span class="comment">// 返回指向第一个大于target的元素的迭代器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 若是对于一个整数数组，则有以下转换, upper_bound可以通过lower_bound来实现</span></span><br><span class="line"><span class="comment">// upper_bound(nums, target) = lower_bound(nums, target + 1)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 左闭右闭区间，这个函数相当于lower_bound</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">binary_search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span></span>&#123; </span><br><span class="line">  <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="type">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span>(left &lt;= right)&#123; <span class="comment">// 闭区间[left, right]</span></span><br><span class="line">      <span class="type">int</span> mid = left + (right - left)/<span class="number">2</span>;</span><br><span class="line">      <span class="keyword">if</span>(nums[mid] &lt; target)&#123; <span class="comment">// 注意，这里如果是小于的情况，就写left变化</span></span><br><span class="line">          left = mid + <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span>&#123; <span class="comment">// nums[mid] &gt;= target</span></span><br><span class="line">          right = mid - <span class="number">1</span>; <span class="comment">// right的情况就是&gt;=target</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> left; <span class="comment">// 最后返回left</span></span><br><span class="line">  <span class="comment">// return right + 1; 也是正确的</span></span><br><span class="line">  <span class="comment">// 最后查找的结果，left = right + 1</span></span><br><span class="line">  <span class="comment">// right的结果是left的前一个结果，如果查找到target，那么left指示的就是target的位置，right是第一个比target小的位置</span></span><br><span class="line">  <span class="comment">// 如果为查找到target，那么left指示的是第一个比target大的数的位置，而right是第一个比target小的位置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面的代码是找到数组中第一个大于等于target的元素位置，下面的代码是找到数组中第一个小于等于target的元素位置（同样可以通过转化，变成找到数组中第一个小于target元素的位置）</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">binary_search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> left = <span class="number">0</span>, right = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">  <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">    <span class="type">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(nums[mid] &lt;= target)&#123;</span><br><span class="line">      result = mid;</span><br><span class="line">      left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">      right = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 同时，只要通过binary_search(nums, target - 1) 就能找到数组中第一个小于target元素的位置</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>差分数组difference array</p>
+<ul>
+<li>思路比较巧妙，类似前缀和</li>
+<li>经典题目可以参考leetcode1094拼车</li>
+<li>题解可以参考<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/car-pooling/?source=vscode">https://leetcode.cn/problems/car-pooling/?source=vscode</a></li>
+</ul>
+</li>
+<li><p>字典树（Trie树，单词查找树）</p>
+<ul>
+<li>树形结构，每一个节点存储一个next数组，长度为26，代表26个字母</li>
+<li>可以用来存储大量的字符串</li>
+<li>利用字符串的公共前缀来减少查找时间</li>
+<li>可以顺序的插入字符串，利用字符串前缀存储，也可以逆序插入字符串，利用字符串的后缀进行存储</li>
+<li>例题：lc208,820<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Trie</span> &#123;</span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    <span class="type">bool</span> IsEnd; <span class="comment">// 代表这个节点是不是一个字符串的结尾。若是，从此节点到根节点构成一个字符串</span></span><br><span class="line">    vector&lt;Trie*&gt; next; <span class="comment">// 每一个节点存储的next数组</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Trie</span>(): <span class="built_in">next</span>(<span class="number">26</span>), <span class="built_in">IsEnd</span>(<span class="literal">false</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(string word)</span></span>&#123; <span class="comment">// 向字典树中插入一个单词word</span></span><br><span class="line">      Trie* node = <span class="keyword">this</span>;</span><br><span class="line">      <span class="keyword">for</span>(<span class="type">char</span> c : word)&#123; <span class="comment">// 按照单词正顺序插入的，也可以逆顺序插入</span></span><br><span class="line">          <span class="keyword">if</span>(node-&gt;next[c - <span class="string">&#x27;a&#x27;</span>] == <span class="literal">NULL</span>)&#123;</span><br><span class="line">              node-&gt;next[c - <span class="string">&#x27;a&#x27;</span>] = <span class="keyword">new</span> <span class="built_in">Trie</span>();</span><br><span class="line">          &#125;</span><br><span class="line">          node = node-&gt;next[c - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">      &#125;</span><br><span class="line">      node-&gt;IsEnd = <span class="literal">true</span>; <span class="comment">// 代表是一个结尾</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">search</span><span class="params">(string word)</span> </span>&#123; <span class="comment">// 查找树中有没有word这个完整的单词</span></span><br><span class="line">      Trie* node = <span class="keyword">this</span>;</span><br><span class="line">      <span class="keyword">for</span>(<span class="type">char</span> c : word)&#123;</span><br><span class="line">          node = node-&gt;next[c - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">          <span class="keyword">if</span>(node == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> node-&gt;isEnd; <span class="comment">// 如果遍历word完，此时node不是结尾的话，返回就是false了，否则会返回true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">startsWith</span><span class="params">(string prefix)</span> </span>&#123; <span class="comment">// 查找一个单词是不是某个单词的前缀</span></span><br><span class="line">      Trie* node = <span class="keyword">this</span>;</span><br><span class="line">      <span class="keyword">for</span>(<span class="type">char</span> c : prefix)&#123;</span><br><span class="line">          node = node-&gt;next[c - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">          <span class="keyword">if</span>(node == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>哈希表小技巧</p>
+<ul>
+<li>对于一些字符串，如果这些字符串里面的所有元素就是26个字母，那么可以只创建一个长度为26的字符串，用来当做哈希数组，节省空间</li>
+</ul>
+</li>
+<li><p>优先队列</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="type">int</span>&gt; pq; <span class="comment">// 最大堆</span></span><br><span class="line">priority_queue&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;, std::greater&lt;&gt;&gt; pq; <span class="comment">// 最小堆</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果要找第k小的元素，则可以使用一个最大堆，保证堆中的元素数量是k个，那么堆中第一个数(pq.top())就正好是第k小的元素。同时及时把多余的大数弹出</li>
+<li>找第k大的元素元素同理，用最小堆。如第2个最大的，pq &#x3D; 3, 5, 则pq.top()正好就是第二个最大的元素</li>
+</ul>
+</li>
+<li><p>图判断是否有环</p>
+<ul>
+<li>无向图：<ul>
+<li>并查集：对每条边进行find操作，如果发现两个节点已经在一个集合中，那就说明有环</li>
+<li>DFS：记录每个访问的节点，如果发现访问到了已经访问过的节点，说明有环</li>
+</ul>
+</li>
+<li>有向图：<ul>
+<li>拓扑排序：如果排序后的顺序数组长度不等于节点个数，则有环</li>
+<li>DFS + 递归栈</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>并查集偏移分组（适用于二分图）</p>
+<ul>
+<li>对于一个边(u, v)，使用join(u + n, v) 和 join(u, v + n)，可以把u和v分别添加到不同的两个组</li>
+<li>在循环的同时检查isSame(u, v)，如果为true则不能构成二分图</li>
+<li>偏移分组就是添加一个足够大的偏移量，保证把所有的u和v分到两个不同的组里面</li>
+</ul>
+</li>
+<li><p>波兰表达式</p>
+<ul>
+<li>前缀表达式，比如a+b就表示为+ab</li>
+<li>从右到左解析，遇到操作数就入栈，遇到操作符就弹出两个操作数计算，结果入栈</li>
+</ul>
+</li>
+<li><p>逆波兰表达式</p>
+<ul>
+<li>后缀表达式，a+b就表示为ab+</li>
+<li>从左到右解析： 解析时从左到右扫描表达式，遇到操作数就入栈，遇到操作符就弹出两个操作数进行计算，结果再入栈</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/30/Java_note/" rel="prev" title="Java Note">
+                  <i class="fa fa-angle-left"></i> Java Note
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/12/30/Note/" rel="next" title="Note">
+                  Note <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Flynn Fu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

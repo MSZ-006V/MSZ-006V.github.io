@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="学习笔记设计模式创建模式（5种） 工厂模式：分为简单工厂模式，工厂方法模式，抽象工厂模式 单例模式：确保一个类最多只有一个实例，并提供一个全局访问点，分为预加载和懒加载简单的保证预加载时候的线程安全的方法比如synchronized和volatile关键字（JAVA）、双重检查锁定（C++） 生成式模式：当创建一个复杂对象的时候，可以拆分成组件分别进行创造。分为Product（要创建的对象）, B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Note">
+<meta property="og:url" content="http://example.com/2024/12/30/Note/index.html">
+<meta property="og:site_name" content="MSZ006&#39;s Cockpit">
+<meta property="og:description" content="学习笔记设计模式创建模式（5种） 工厂模式：分为简单工厂模式，工厂方法模式，抽象工厂模式 单例模式：确保一个类最多只有一个实例，并提供一个全局访问点，分为预加载和懒加载简单的保证预加载时候的线程安全的方法比如synchronized和volatile关键字（JAVA）、双重检查锁定（C++） 生成式模式：当创建一个复杂对象的时候，可以拆分成组件分别进行创造。分为Product（要创建的对象）, B">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-30T19:02:59.428Z">
+<meta property="article:modified_time" content="2024-12-30T19:21:21.476Z">
+<meta property="article:author" content="Flynn Fu">
+<meta property="article:tag" content="note">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/12/30/Note/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/12/30/Note/","path":"2024/12/30/Note/","title":"Note"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Note | MSZ006's Cockpit</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MSZ006's Cockpit</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About me</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%BC%8F%EF%BC%885%E7%A7%8D%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建模式（5种）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E6%A8%A1%E5%BC%8F%EF%BC%887%E7%A7%8D%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">结构模式（7种）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F%EF%BC%8811%E7%A7%8D%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">关系模式（11种）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%94%E8%AF%95%E9%A2%98%E7%9B%AE%E8%AE%B0%E5%BD%95"><span class="nav-number">1.2.</span> <span class="nav-text">笔试题目记录</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Flynn Fu"
+      src="/images/avatar_msz006.jpg">
+  <p class="site-author-name" itemprop="name">Flynn Fu</p>
+  <div class="site-description" itemprop="description">No because they are easy, but because they are hard</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MSZ-006V" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MSZ-006V" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/ymrenfu@gmail.com" title="E-Mail → ymrenfu@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yinmingren-fu-msz006/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yinmingren-fu-msz006&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/files/Resume.pdf" title="Resume → files&#x2F;Resume.pdf" rel="noopener me"><i class="fa fa-file fa-fw"></i>Resume</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/30/Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_msz006.jpg">
+      <meta itemprop="name" content="Flynn Fu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MSZ006's Cockpit">
+      <meta itemprop="description" content="No because they are easy, but because they are hard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Note | MSZ006's Cockpit">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Note
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-12-30 11:02:59 / Modified: 11:21:21" itemprop="dateCreated datePublished" datetime="2024-12-30T11:02:59-08:00">2024-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="学习笔记"><a href="#学习笔记" class="headerlink" title="学习笔记"></a>学习笔记</h1><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><h3 id="创建模式（5种）"><a href="#创建模式（5种）" class="headerlink" title="创建模式（5种）"></a>创建模式（5种）</h3><ul>
+<li>工厂模式：分为简单工厂模式，工厂方法模式，抽象工厂模式</li>
+<li>单例模式：确保一个类最多只有一个实例，并提供一个全局访问点，分为预加载和懒加载<br>简单的保证预加载时候的线程安全的方法比如synchronized和volatile关键字（JAVA）、双重检查锁定（C++）</li>
+<li>生成式模式：当创建一个复杂对象的时候，可以拆分成组件分别进行创造。分为Product（要创建的对象）, Builder（定义不同对象的相同创造过程）, Director（具体定义对象的创造）, ConcreteBuilder（具体不同对象的创造器）四种不同的类</li>
+<li>原型模式：本质就是clone，通过复制现有实例来创建新的实例，无需知道相应类的信息<span id="more"></span></li>
+</ul>
+<h3 id="结构模式（7种）"><a href="#结构模式（7种）" class="headerlink" title="结构模式（7种）"></a>结构模式（7种）</h3><ul>
+<li>适配器模式：适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题。分为类适配器，对象适配器，接口适配器，第一个适配器类型应该少用</li>
+<li>装饰者模式：动态的将新功能附加到对象上。在对象功能扩展方面，它比继承更有弹性（例子：奶茶店点一杯奶茶，基础奶茶是绿茶，可以选择加珍珠，奶盖，芋泥，啵啵等，新增的调料就是装饰者，绿茶就是被装饰者）<br> 被装饰者和装饰者必须继承自同一个类</li>
+<li>代理模式：代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。（中介）分为三类：1. 静态代理 2. 动态代理 3. CGLIB代理</li>
+<li>外观模式：隐藏了系统的复杂性，并向客户端提供了一个可以访问系统的接口。分为门面角色，客户角色，子系统角色<br>门面角色封装子系统角色，客户角色负责调用门面角色</li>
+<li>桥接模式：将抽象部分与它的实现部分分离，使它们都可以独立地变化。</li>
+<li>组合模式：</li>
+<li>享元模式：</li>
+</ul>
+<h3 id="关系模式（11种）"><a href="#关系模式（11种）" class="headerlink" title="关系模式（11种）"></a>关系模式（11种）</h3><h2 id="笔试题目记录"><a href="#笔试题目记录" class="headerlink" title="笔试题目记录"></a>笔试题目记录</h2><ol>
+<li>enum大小一般与整数类型相同，int4字节或8字节，空类的大小是1个字节，虚函数表指针占8个字节，char 1个字节，int，float 4个字节，double 8个字节</li>
+<li>union的大小取决于最大的那个元素，同时要注意内存对齐问题</li>
+<li>同一个进程中的线程不共享的部分是 <u>栈空间</u></li>
+<li>关于系统调用的描述，正确：系统调用把应用程序的请求传输给系统内核执行，利用系统调用能够得到操作系统提供的多种服务，是操作系统提供给编程人员的接口，系统调用给用户屏蔽了设备访问的细节，系统调用保护了一些只能在内核模式执行的操作指令。错误的：系统调用中被调用的过程运行在”用户态”中，应该在内核态</li>
+<li>互联网五层结构（从低到高）：物理层-&gt;数据链路层-&gt;网络层-&gt;传输层-&gt;应用层<br>VPN隧道协议主要有4种：点到点隧道协议PPTP、第二层隧道协议L2TP、网络层隧道协议IPSec以及SOCKS v5协议。其中，PPTP和L2TP工作在数据链路层，IPSec工作在网络层，SOCK v5工作在会话层<br>数据链路层：Ethernet, PPP, ATM, HDLC<br>网络层：IP, ICMP, ARP<br>传输层：TCP, UDP,<br>应用层：HTTP, FTP, SMTP<br>TCP传输控制协议：三次握手，四次挥手，提供面向连接的服务。在传送数据之前必须先建立连接，数据传送结束后要释放连接。<br>UDP用户数据报协议：在传送数据之前不需要先建立连接，远程主机在收到 UDP 报文后，不需要给出任何确认，不提供可靠交付</li>
+<li>最大堆的构建方法！</li>
+<li>哈夫曼树的构建方法！</li>
+<li>注意以下问题：生产者消费者问题，哲学家用餐问题，读者写者问题</li>
+<li><strong>进程</strong> 是运行时程序的封装，是系统进行资源调度和分配的基本单位，实现了操作系统的并发<br>进程间通信可以使用：管道（pipeline）、系统IPC（消息队列、信号量Semaphore、信号、共享内存）以及套接字socket</li>
+<li><strong>线程</strong> 是进程的子任务，是CPU调度和分派的基本单位，用于保证程序的实时性，实现进程内部的并发；线程是操作系统可识别的最小执行和调度单位。每个线程都独占一个虚拟处理器：独自的寄存器组，指令计数器和处理器状态。每个线程共享同一地址空间，打开的文件队列和其他内核资源。<br>   线程间通信的方式有临界区，互斥量Synchronized&#x2F;Lock，信号量semaphore，事件（信号）wait&#x2F;notify</li>
+<li>进程与线程的区别：<ul>
+<li>进程是资源分配的最小单位，线程是CPU调度的最小单位</li>
+<li>进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存</li>
+<li>一个线程只能属于一个进程，而一个进程可以有多个线程；</li>
+<li>系统开销：进程切换的开销也远大于线程切换的开销</li>
+</ul>
+</li>
+<li>虚拟内存：让程序拥有超过系统物理内存大小的可用内存空间。虚拟内存为每一个进程提供了一个一致的、私有的地址空间，它让每个进程产生了一种自己在独享储存的错觉（每个内存拥有一片连续完整的内存空间），定义了一个连续的虚拟地址空间，并把内存扩展到硬盘空间</li>
+<li>程序编译过程：</li>
+</ol>
+<ul>
+<li>预处理：删除所有注释信息，展开宏定义，删除include</li>
+<li>编译：词法分析、语法分析、语义分析并优化后生成相对应的汇编文件</li>
+<li>汇编：转为机械指令，生成<strong>目标文件</strong></li>
+<li>链接：分为静态与动态</li>
+</ul>
+<ol start="14">
+<li>静态链接：优点：执行速度快；缺点：浪费空间，更新困难，需要重新编译<br>动态链接：优点：更新方便，没有多个库的副本；缺点：运行时后进行链接，损失性能</li>
+<li>HTTP的方法：HTTP的工作方式是客户端与服务器之间的请求-应答协议<ul>
+<li>GET: 从指定的资源&#x3D;&#x3D;请求数据&#x3D;&#x3D;</li>
+<li>POST：向指定的资源&#x3D;&#x3D;提交&#x3D;&#x3D;要被处理的数据</li>
+<li>HEAD</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>CONNECT</li>
+<li>OPTIONS</li>
+</ul>
+</li>
+<li>封装，继承，多态（编译时候的多态：函数重载 || 运行时候的多态：继承，虚函数有关）</li>
+<li>python regex <ul>
+<li>通过<code>import re</code>导入正则表达式库<br>.： 匹配任意单个字符（除了换行符 \n）<br>^： 匹配字符串的开头<br>$： 匹配字符串的结尾<br>[]： 匹配括号内的任意一个字符<br>|： 或操作，匹配左右任意一个表达式<br>\： 转义字符，用于匹配特殊字符(如匹配反斜杠 \，就写成str1 &#x3D; r”\“, 即为匹配字符 \ )<br>*: 匹配前一个字符的0次或多次。(str1 &#x3D; r”\d星号”, 匹配0个或者多个数字)<br>+： 匹配前一个字符的1次或多次。<br>?： 匹配前一个字符的0次或1次。<br>{}： 自定义匹配次数。<br>{m,n}： 匹配前一个字符至少m次，至多n次。  </li>
+<li>特殊字符：<br>\d： 匹配任意数字字符。<br>\D： 匹配任意非数字字符。<br>\w： 匹配任意字母、数字、下划线字符。<br>\W： 匹配任意非字母、数字、下划线字符。<br>\s： 匹配任意空白字符（空格、制表符、换行符等）。<br>\S： 匹配任意非空白字符。  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">num1 = <span class="string">&quot;-1+-1i&quot;</span></span><br><span class="line">matches = re.findall(<span class="string">r&#x27;[-+]?\d+&#x27;</span>, num1)</span><br><span class="line">real, imaginary = <span class="built_in">map</span>(<span class="built_in">int</span>, matches)</span><br><span class="line"><span class="comment"># 使用正则表达式匹配提取复数的实部和虚部</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>WebSocket特性：<ul>
+<li>全双工通信：客户端与服务器可以同时发送和接收数据</li>
+<li>低延迟：可以降低通信延迟，建立连接后，可以通过已建立的连接进行数据传输</li>
+<li>轻量级：头部信息较小，数据传输效率高，</li>
+<li>持久连接：与HTTP请求-响应模式不同，可以保持客户端与服务器之间长久的通信</li>
+<li>跨域通信&#x2F;安全性</li>
+</ul>
+</li>
+<li>稳定和原地排序算法不是一个概念，稳定：对于相等元素，排序后相对次序不对，而原地排序指不需要额外的空间，操作在原始数据上进行</li>
+<li>[^A-Z]表示匹配任意一个除了A-Z大写字母外, ^[A-Z]匹配A-Z大写字母开头的</li>
+<li>Shell语言<ul>
+<li>变量分为：用户自定义变量，环境变量，预定义变量</li>
+<li>变量名大写，等号无空格：NUM&#x3D;10</li>
+<li>使用$调用，如echo $NUM, echo打印变量值</li>
+<li><code>$0: 脚本文件名，$1-9：第1-9个命令行参数名，$#：命令行参数个数，$*和$@:所有命令行参数，$$:执行的进程ID，$?:前一个命令的退出状态，可以获取函数返回值</code></li>
+<li>环境变量：HOME：用户主目录；PATH：系统环境变量 PATH；TERM：当前终端；UID：当前用户 ID；PWD：当前工作目录，绝对路径</li>
+<li>if, for, while语句</li>
+</ul>
+</li>
+<li>VPN维护用户身份验证和访问控制的手段：1. 用户名密码认证，或验证码，生物特征等认证 2. 证书认证 3. 令牌认证 4. 访问控制列表（ACL）： VPN 服务器可以配置访问控制列表，限制用户连接到特定的网络资源或服务。管理员可以根据用户的身份、所在位置等因素配置不同的访问控制策略 5. 审计日志 </li>
+<li>可用于返回指定字符串中指定子字符串出现的起始位置的函数是：Charindex()，SubString()求子串，Stuff()删除指定长度的字符，并在删除的位置插入新的字符，Soundex()返回指定字符串的SOUNDEX值</li>
+<li>SQL中检测日期：datediff(dd, RDATE, getdate())&#x3D;0</li>
+<li>SQL中，!&#x3D; 无法检测null值，即无法比较 ‘a_name’ !&#x3D; null, 要使用 NAME IS NULL</li>
+<li>SQL语言的组成部分有：数据定义语言、数据处理语言、数据控制语言、数据库事务。数据字典是关于数据库中数据的描述，是元数据，而不是数据本身。</li>
+<li>协程<ul>
+<li>可以被称为用户态线程，本质就是函数和函数运行状态的组合</li>
+<li>yield：协程执行到一半可以使用yield进行退出，交还CPU执行权</li>
+<li>resume：重新恢复运行</li>
+<li>在单线程下，一个协程的yield，一定会有另一个协程的resume。协程的运行和调度都要通过应用程序来完成</li>
+<li>对称协程，协程可以不受限制地将控制权交给任何其他协程。任何⼀个协程都是相互独⽴且平等的，调度权可以在任意协程之间转移</li>
+<li>⾮对称协程，是指协程之间存在类似堆栈的调⽤⽅-被调⽤⽅关系</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/30/leetcode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/" rel="prev" title="Leetcode Note">
+                  <i class="fa fa-angle-left"></i> Leetcode Note
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Flynn Fu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
