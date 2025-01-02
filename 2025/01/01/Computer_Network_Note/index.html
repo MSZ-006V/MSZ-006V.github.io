@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInLeft","post_block":"fadeInDown","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInLeft"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="计算机网络笔记与知识点TCP&#x2F;IP网络模型 应用层（application layer）：工作在操作系统中的用户态，应用软件都在应用层实现，包括HTTP，DNS，FTP协议 传输层（transport layer）：为应用层提供网络支持，传输协议TCP（Transmission Control Protocol）&#x2F;UDP（User Datagram Protocol）, 80端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Computer Network Notes">
+<meta property="og:url" content="http://example.com/2025/01/01/Computer_Network_Note/index.html">
+<meta property="og:site_name" content="MSZ006&#39;s Cockpit">
+<meta property="og:description" content="计算机网络笔记与知识点TCP&#x2F;IP网络模型 应用层（application layer）：工作在操作系统中的用户态，应用软件都在应用层实现，包括HTTP，DNS，FTP协议 传输层（transport layer）：为应用层提供网络支持，传输协议TCP（Transmission Control Protocol）&#x2F;UDP（User Datagram Protocol）, 80端">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2025/01/01/Computer_Network_Note/image/network1.png">
+<meta property="og:image" content="http://example.com/2025/01/01/Computer_Network_Note/image/network2.png">
+<meta property="og:image" content="http://example.com/2025/01/01/Computer_Network_Note/image/network3.png">
+<meta property="article:published_time" content="2025-01-02T01:32:13.000Z">
+<meta property="article:modified_time" content="2025-01-02T04:38:09.840Z">
+<meta property="article:author" content="Flynn Fu">
+<meta property="article:tag" content="computer basis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/01/01/Computer_Network_Note/image/network1.png">
+
+
+<link rel="canonical" href="http://example.com/2025/01/01/Computer_Network_Note/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/01/01/Computer_Network_Note/","path":"2025/01/01/Computer_Network_Note/","title":"Computer Network Notes"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Computer Network Notes | MSZ006's Cockpit</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MSZ006's Cockpit</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">MSZ006's Blogs</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About me</a></li><li class="menu-item menu-item-projects"><a href="/categories/Projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li><li class="menu-item menu-item-blogs"><a href="/categories/Blogs/" rel="section"><i class="fa fa-blog fa-fw"></i>Blogs</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">计算机网络笔记与知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.0.1.</span> <span class="nav-text">TCP&#x2F;IP网络模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E5%9D%80%E5%88%B0%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA"><span class="nav-number">1.0.2.</span> <span class="nav-text">网址到网页显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">对称加密&#x2F;非对称加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL-TLS%E5%8A%A0%E5%AF%86%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.0.4.</span> <span class="nav-text">SSL&#x2F;TLS加密协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MD5"><span class="nav-number">1.0.5.</span> <span class="nav-text">MD5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E5%92%8CHTTPS"><span class="nav-number">1.0.6.</span> <span class="nav-text">HTTP和HTTPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS"><span class="nav-number">1.0.7.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E8%BF%9E%E6%8E%A5%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">1.0.8.</span> <span class="nav-text">TCP连接如何确保稳定性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E5%92%8CUDP%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.9.</span> <span class="nav-text">TCP和UDP区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.0.10.</span> <span class="nav-text">相关协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%8F%8C%E5%B7%A5%EF%BC%8C%E5%8D%8A%E5%8F%8C%E5%B7%A5%EF%BC%8C%E5%8D%95%E5%B7%A5"><span class="nav-number">1.0.11.</span> <span class="nav-text">全双工，半双工，单工</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.0.12.</span> <span class="nav-text">网络文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.0.13.</span> <span class="nav-text">IP协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E7%8E%AF%E5%9C%B0%E5%9D%80"><span class="nav-number">1.0.14.</span> <span class="nav-text">回环地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.0.15.</span> <span class="nav-text">网络系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC%EF%BC%88Remote-Procedure-Call%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">RPC（Remote Procedure Call）方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">高性能网络模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BB%E5%A1%9EIO%EF%BC%8C%E9%9D%9E%E9%98%BB%E5%A1%9EIO%EF%BC%8C%E5%90%8C%E6%AD%A5IO%EF%BC%8C%E5%BC%82%E6%AD%A5IO"><span class="nav-number">1.2.1.</span> <span class="nav-text">阻塞IO，非阻塞IO，同步IO，异步IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reactor"><span class="nav-number">1.2.2.</span> <span class="nav-text">Reactor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9AReactor%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">多Reactor多进程&#x2F;线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proactor"><span class="nav-number">1.2.4.</span> <span class="nav-text">Proactor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">一致性哈希算法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Flynn Fu"
+      src="/images/avatar_msz006.jpg">
+  <p class="site-author-name" itemprop="name">Flynn Fu</p>
+  <div class="site-description" itemprop="description">No because they are easy, but because they are hard</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MSZ-006V" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MSZ-006V" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/ymrenfu@gmail.com" title="E-Mail → ymrenfu@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yinmingren-fu-msz006/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yinmingren-fu-msz006&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/files/Resume.pdf" title="Resume → files&#x2F;Resume.pdf" rel="noopener me"><i class="fa fa-file fa-fw"></i>Resume</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/01/Computer_Network_Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_msz006.jpg">
+      <meta itemprop="name" content="Flynn Fu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MSZ006's Cockpit">
+      <meta itemprop="description" content="No because they are easy, but because they are hard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Computer Network Notes | MSZ006's Cockpit">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Computer Network Notes
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-01-01 17:32:13 / Modified: 20:38:09" itemprop="dateCreated datePublished" datetime="2025-01-01T17:32:13-08:00">2025-01-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="计算机网络笔记与知识点"><a href="#计算机网络笔记与知识点" class="headerlink" title="计算机网络笔记与知识点"></a>计算机网络笔记与知识点</h1><h3 id="TCP-IP网络模型"><a href="#TCP-IP网络模型" class="headerlink" title="TCP&#x2F;IP网络模型"></a>TCP&#x2F;IP网络模型</h3><ul>
+<li>应用层（application layer）：工作在操作系统中的用户态，应用软件都在应用层实现，包括HTTP，DNS，FTP协议</li>
+<li>传输层（transport layer）：为应用层提供网络支持，传输协议TCP（Transmission Control Protocol）&#x2F;UDP（User Datagram Protocol）, 80端口通常是Web服务器，22端口是远程登录服务器用的，包括TCP，UDP协议<span id="more"></span></li>
+<li>网络层（Internet layer）：主要是IP协议（Internet protocol），负责将数据从一个设备传输到另外一个设备，实现主机与主机之间的通信。包括IP，ICMP协议</li>
+<li>链路层（link layer）：当网络层生成IP头部后，链路层在IP前面加入MAC头部，封装为数据帧（data frame）进行发送。链路层主要为网络层提供「链路级别」传输的服务，负责在以太网、WiFi这样的底层网络上发送原始数据包，工作在网卡这个层次，使用MAC地址来标识网络上的设备<ul>
+<li>MAC头部是以太网使用的头部，它包含了接收方和发送方的MAC地址等信息，我们可以通过 ARP协议获取对方的 MAC 地址。  <div style="text-align: center;">
+  <img src="image/network1.png" alt="description" >
+  </div></li>
+</ul>
+</li>
+</ul>
+<h3 id="网址到网页显示"><a href="#网址到网页显示" class="headerlink" title="网址到网页显示"></a>网址到网页显示</h3><ul>
+<li>首先浏览器解析URL（<a target="_blank" rel="noopener" href="http://www.server.com/files/README.html%EF%BC%89%EF%BC%8C%E8%A7%A3%E6%9E%90%E5%87%BA%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%EF%BC%8C%E7%94%9F%E6%88%90HTTP%EF%BC%88Hypertext">http://www.server.com/files/README.html），解析出相关信息后，生成HTTP（Hypertext</a> Transfer Protocol）请求消息。目标服务器域名为server.com, 访问文件夹为files，访问文件为README.html</li>
+<li>DNS查询目标服务器域名对应的IP并获取</li>
+<li>然后HTTP请求消息可以基于TCP协议进行传输，TCP协议可以包装HTTP请求消息，加上一个TCP头部进行可靠传输，然后再加上一个IP头。所以目前，整个网络包的报文结构就是IP头+TCP头+HTTP报文</li>
+<li>再在IP头前加上一个MAC头部（以太网使用的头部，包含发送方接收方的MAC地址等信息），一般在TCP&#x2F;IP协议里，MAC包头的协议类型使用IP或ARP协议。所以目前，整个网络包的报文结构就是MAC头+IP头+TCP头+HTTP报文</li>
+<li>出口：网卡。接收数据包，头部加上报头和起始帧分界符，结尾加上检测错误的帧校验序列，然后把二进制数据转换为电信号，发送</li>
+</ul>
+<h3 id="对称加密-非对称加密"><a href="#对称加密-非对称加密" class="headerlink" title="对称加密&#x2F;非对称加密"></a>对称加密&#x2F;非对称加密</h3><ul>
+<li>对称加密（Symmetric Encryption）：对称加密使用同一个密钥进行加密和解密。也就是说，发送方和接收方必须共享同一个密钥，用来对数据进行加密和解密<ul>
+<li>加密和解密使用相同的密钥，同时加密速度快，但是安全性会依赖于密钥管理，如果密钥泄露，信息将不再保密</li>
+<li>常见算法：AES(高级加密标准)，DES(三重DES)，RC4</li>
+</ul>
+</li>
+<li>非对称加密（Asymmetric Encryption）：非对称加密使用一对密钥，即公钥和私钥。加密和解密过程使用不同的密钥。公钥用于加密，任何人都可以使用公钥加密信息。私钥用于解密，只有拥有私钥的人才能解密用公钥加密的数据<ul>
+<li>加密速度慢，安全性高</li>
+<li>常见算法：RSA，ECC(椭圆曲线加密)，DSA(数字签名算法)</li>
+</ul>
+</li>
+</ul>
+<h3 id="SSL-TLS加密协议"><a href="#SSL-TLS加密协议" class="headerlink" title="SSL&#x2F;TLS加密协议"></a>SSL&#x2F;TLS加密协议</h3><ul>
+<li>SSL（Secure Sockets Layer）是早期的加密协议，不再安全。而TLS（Transport Layer Security）是SSL升级版。目前SSL&#x2F;TLS用于HTTPS提供安全传输协议</li>
+<li>在握手阶段，客户端与服务器使用非对称加密交换密钥，用于后续通信的对称加密</li>
+<li>在验证服务器证书是否可信后，生成对称加密密钥。后面双方使用对称加密算法（如AES）加密后续的通信数据</li>
+</ul>
+<h3 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h3><ul>
+<li>MD5（Message Digest Algorithm 5，消息摘要算法5）是一种广泛使用的哈希函数，它将任意长度的输入数据通过一系列复杂的运算转换为固定长度的输出（通常是128位，也就是16字节）。它主要用于生成数据的哈希值（也称为摘要），用于验证数据的完整性</li>
+<li>特性：不可逆，定长输出（128位16字节的输出），相同输入相同输出，输入敏感性，计算高效性</li>
+<li>用途：数据完整性验证（文件传输中可以保证传输的文件数据未被篡改）也可以用作数字签名<ul>
+<li>MD5 在许多网络协议中得到了广泛应用，比如：</li>
+<li>HTTPS 和 TLS：MD5 曾被用于 HTTPS 和 TLS 协议中的数字签名和证书验证。</li>
+<li>IPSec：IPSec 协议中的一些组件使用了 MD5 进行数据完整性验证。</li>
+<li>其他网络应用：MD5 也常用于 P2P 网络、文件传输工具、软件分发平台等场景，以验证下载文件的完整性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="HTTP和HTTPS"><a href="#HTTP和HTTPS" class="headerlink" title="HTTP和HTTPS"></a>HTTP和HTTPS</h3><ul>
+<li>HTTP是明文传输，HTTPS通过SSL&#x2F;TLS进行了加密</li>
+<li>端口号分别是80和443</li>
+<li>HTTPS需要申请证书</li>
+<li>HTTP连接简单，是无状态的。HTTPS更安全</li>
+<li>HTTPS使用对称加密，非对称加密，哈希函数（主要用于数据完整性验证，如SHA-256）</li>
+</ul>
+<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><ul>
+<li>DNS（Domain Name System），解决域名与IP地址映射的问题。实际上就是找要访问URL的网站的IP地址</li>
+<li>端口号 53：DNS 服务通常使用 UDP 和 TCP 协议进行通信，默认的通信端口是 53。<ul>
+<li>UDP 端口 53：用于常规的 DNS 查询（如解析域名到 IP 地址）。</li>
+<li>TCP 端口 53：用于当查询的数据量过大（超过 512 字节）或用于某些特别的操作（如区域传输，Zone Transfer）</li>
+</ul>
+</li>
+<li>TTL（Time to Live） 是 DNS 记录中的一个字段，用于指定该记录在 DNS 解析器（缓存服务器）中存储的有效时间。在 TTL 到期后，缓存的记录将失效，需要重新向权威 DNS 服务器发起查询</li>
+<li>DNS 中毒（DNS Cache Poisoning）：是一种DNS攻击方式。可能会造成网络欺诈，流量劫持，数据泄露，阻断访问</li>
+</ul>
+<h3 id="TCP连接如何确保稳定性"><a href="#TCP连接如何确保稳定性" class="headerlink" title="TCP连接如何确保稳定性"></a>TCP连接如何确保稳定性</h3><ul>
+<li>工作过程：<ul>
+<li>三次握手（建立连接）</li>
+<li>数据传输</li>
+<li>四次挥手（四次挥手）</li>
+</ul>
+</li>
+<li>优势<ul>
+<li>可靠性（保证数据传输的可靠，适用于高可靠性传输的场景），有序性（数据包按序到达）</li>
+<li>流量控制和拥塞控制（动态调整，避免网络过载和数据丢失）</li>
+</ul>
+</li>
+<li>数据块大小控制</li>
+<li>序列号</li>
+<li>校验和</li>
+<li>流量控制</li>
+<li>拥塞控制<ul>
+<li>慢启动</li>
+<li>拥塞避免</li>
+<li>超时重传</li>
+<li>快速重传</li>
+<li>拥塞窗口调整</li>
+</ul>
+</li>
+<li>确认应答</li>
+<li>超时重传</li>
+</ul>
+<h3 id="TCP和UDP区别"><a href="#TCP和UDP区别" class="headerlink" title="TCP和UDP区别"></a>TCP和UDP区别</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>连接类型</td>
+<td>面向连接（需要建立和关闭连接）</td>
+<td>无连接</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>提供可靠传输，数据包有序且无丢失</td>
+<td>不保证可靠性，可能丢包、乱序</td>
+</tr>
+<tr>
+<td>数据校验</td>
+<td>有错误检测和校验</td>
+<td>没有可靠的错误检测机制</td>
+</tr>
+<tr>
+<td>流量控制和拥塞控制</td>
+<td>有</td>
+<td>没有</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>较慢（因可靠性机制引入的开销）</td>
+<td>较快（无额外的可靠性开销）</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>文件传输、电子邮件、网页等</td>
+<td>流媒体、在线游戏、VoIP 等实时应用</td>
+</tr>
+</tbody></table>
+<ul>
+<li>当然也可以实现可靠传输的UDP协议，只需要把TCP的特性在应用层上实现，就可以实现一个可靠传输的UDP协议</li>
+</ul>
+<h3 id="相关协议"><a href="#相关协议" class="headerlink" title="相关协议"></a>相关协议</h3><ul>
+<li>ICMP（Internet control message protocol）：互联网控制报文协议。告知网络包传送过程中产生的各种错误和各种控制信息，确认IP包是否成功送达目标地址、报告发送过程中IP包被废弃的原因和改善网络设置等</li>
+<li>ARP：根据IP地址查询相对应的以太网MAC地址，具有ARP缓存，可以存储部分MAC地址（查询是在以太网中以广播的方式查询）</li>
+<li>RARP：已知MAC地址查找IP地址，例如将打印机连入网络，一般就用这个</li>
+<li>DHCP：电脑通过DHCP动态获取IP地址</li>
+<li>IP<ul>
+<li>具有寻址能力（寻找IP地址），路由能力（找到目标地址子网然后发送数据）</li>
+<li>通常可以分为网络号（标识IP地址属于哪个子网）和主机号（标识同一子网下的不同主机）</li>
+<li>将子网掩码与IP按位与计算，就可以得到网络号和主机号</li>
+<li>IP和MAC的区别就是，IP在两台没有直连的网络之间通信传输，而MAC在两台直连的网络之间传输</li>
+</ul>
+</li>
+<li>HTTP</li>
+<li>HTTPS</li>
+<li>TCP（Transmission Control Protocol，传输控制协议）是网络通信中最重要的协议之一，属于 TCP&#x2F;IP 协议栈的传输层。TCP 主要用于在计算机网络中提供可靠、有序、面向连接的数据传输服务</li>
+<li>ARQ（Automatic Repeat Request，自动重传请求）:当接收方接收到数据包，向发送方发送确认（ACK）。当发送方发送数据包后，等待一段时间如果没有收到确认，则重新发送</li>
+<li>SSL&#x2F;TLS</li>
+<li>NAT（网络地址转换）：将私有IP地址转换为公有IP地址。例如一个子网下的两台主机与网络外的某台主机通信的时候，可以使用NAPT（网络地址与端口转换）协议，规定第一台使用1025端口第二台使用1026端口进行通信，而这两台主机使用相同的公有IP地址，这样就减少了IP地址的消耗速度</li>
+</ul>
+<h3 id="全双工，半双工，单工"><a href="#全双工，半双工，单工" class="headerlink" title="全双工，半双工，单工"></a>全双工，半双工，单工</h3><ul>
+<li>全双工（Full-Duplex）：双方可以同时发送消息和接收消息。电话，以太网，WIFI</li>
+<li>半双工（Half-Duplex）：双方只能交替发送或接收消息，同一时刻只能有一方在发送消息。对讲机</li>
+<li>单工（Simplex）：一方接收，一方发送。广播，电视</li>
+</ul>
+<h3 id="网络文件系统"><a href="#网络文件系统" class="headerlink" title="网络文件系统"></a>网络文件系统</h3><ul>
+<li>CLient-side caching: 客户端缓存，将经常访问的数据存储在客户端本地，从而减少了每次都需要从服务器获取数据的次数，显著降低了延迟并加快了访问速度，减少对文件服务器的网络请求，也能降低服务器的负载，从而进一步提升分布式文件访问的系统性能(高频访问数据的系统,离线系统，Web应用静态资源)</li>
+<li>Server-side compression: 减少带宽占用，但压缩和解压文件会引入额外的开销，可能增加延迟（适用于带宽受限的环境（压缩减小文件大小），内容传输网络（CDN，压缩加快传输速度））</li>
+<li>Encrypted File Transmission：文件加密传输（安全性高的应用，VPN保证远程访问的安全性，电子邮件&#x2F;文件传输）</li>
+<li>Synchronous Replication: 同步复制（保证数据一致性，适用于高可靠性和容错要求极高的系统，应用在分布式数据库）</li>
+</ul>
+<h3 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h3><ul>
+<li>IPV4：共32位，分为ABCDE类地址，ABC类主要分为两个部分网络号和主机号。<ul>
+<li>主机号全为1代表指定网络下的所有主机，用于广播</li>
+<li>主机号全为0指定某个网络</li>
+</ul>
+</li>
+<li>CIDR无分类地址<ul>
+<li>形式为a.b.c.d&#x2F;x，x代表前x位属于网络号，x范围是0~32</li>
+<li>子网掩码：可以掩盖掉主机号只得到网络号。将子网掩码和IP地址按位AND，就可以得到网络号。同时子网掩码可以进一步做网络划分（将主机号划分为子网网络地址和子网主机地址）</li>
+</ul>
+</li>
+<li>私有IP和公有IP：私有IP可以重复，由内部管理员自行管理；公有IP由权威机构进行管理</li>
+<li>环回地址localhost: 127.0.0.1, 使用这个IP时，数据包不会流向网络</li>
+<li>IPV6：128位地址，16位为一组<ul>
+<li>有以下几种类型地址：单播地址（一对一），组播地址（一对多），任播地址（用于通信最近的节点）</li>
+</ul>
+</li>
+<li>ICMP协议<ul>
+<li>可以实现ping的功能，向目标主机发送查询报文类型，利用回送消息（这个消息可以判断发送的数据包是否成功到达另一端）</li>
+<li>ICMP报文是包括在IP包里面的，工作在网络层（IP也工作在网络层）</li>
+<li>包头类型字段分为查询报文类型和差错报文类型</li>
+</ul>
+</li>
+</ul>
+<h3 id="回环地址"><a href="#回环地址" class="headerlink" title="回环地址"></a>回环地址</h3><ul>
+<li>IPV4中是127.0.0.1，IPV6中是::1（::代表前面全部都是0）</li>
+<li>127.0.0.1是回环地址，localhost是域名，但默认等于127.0.0.1</li>
+<li>ping回环地址和ping本机地址是一样的，走的是lo0”假网卡”，都会经过网络层和数据链路层等逻辑，但是在最后在快要出网卡前，将数据插入到一个链表后就软中断通知ksoftirgd来进行收数据的逻辑，不会出本机网络。所以断网了也能ping通回环地址</li>
+<li>如果服务器listen的是0.0.0.0地址，代表监听了本机所有的IPV4地址，包括127地址与本机IP地址，所以使用127与IP，都可以访问到</li>
+</ul>
+<h3 id="网络系统"><a href="#网络系统" class="headerlink" title="网络系统"></a>网络系统</h3><ul>
+<li>包括Linux通信与网络通信，Socket，TCP通信等等，具体可以看下面这个文章</li>
+<li>小林coding：解释select&#x2F;poll&#x2F;epoll -&gt; <a target="_blank" rel="noopener" href="https://xiaolincoding.com/os/8_network_system/selete_poll_epoll.html#%E6%80%BB%E7%BB%93">https://xiaolincoding.com/os/8_network_system/selete_poll_epoll.html#%E6%80%BB%E7%BB%93</a></li>
+<li>相关的内容在Linux_Network.md中也有</li>
+</ul>
+<h2 id="RPC（Remote-Procedure-Call）方法"><a href="#RPC（Remote-Procedure-Call）方法" class="headerlink" title="RPC（Remote Procedure Call）方法"></a>RPC（Remote Procedure Call）方法</h2><ul>
+<li>是一个协议，基于TCP协议衍生的一个RPC协议。基于TCP衍生的协议比如就有HTTP与RPC协议</li>
+<li>RPC即是希望像调用本地Function一样调用远程服务器上的Function，常见的有gRPC协议。比如可以用做公司内部集群的通信，用于公司内部微服务通信</li>
+</ul>
+<h2 id="高性能网络模式"><a href="#高性能网络模式" class="headerlink" title="高性能网络模式"></a>高性能网络模式</h2><ul>
+<li>教程链接：<a target="_blank" rel="noopener" href="https://xiaolincoding.com/os/8_network_system/reactor.html#%E6%BC%94%E8%BF%9B">https://xiaolincoding.com/os/8_network_system/reactor.html#%E6%BC%94%E8%BF%9B</a></li>
+</ul>
+<h3 id="阻塞IO，非阻塞IO，同步IO，异步IO"><a href="#阻塞IO，非阻塞IO，同步IO，异步IO" class="headerlink" title="阻塞IO，非阻塞IO，同步IO，异步IO"></a>阻塞IO，非阻塞IO，同步IO，异步IO</h3><ul>
+<li>阻塞IO：当用户程序执行read，线程会被阻塞，一直等到内核数据准备好，并把数据从内核缓冲区拷贝到到应用程序的缓冲区中，当拷贝过程完成，read才会返回。阻塞等待的是内核数据准备和数据拷贝的过程</li>
+<li>非阻塞IO：应用程序发送read请求，若数据未准备好，直接返回，此时用户程序可以继续往下执行。然后应用程序不断使用read轮询内核，如果还是没有准备好数据，依然会立即返回。直到数据准备好，内核将数据拷贝到应用程序缓冲区，read调用获取到结果。<br>在这种情况下，非阻塞IO的应用程序仍然需要等待数据拷贝的时间</li>
+<li>阻塞IO和非阻塞IO其实都是同步IO，因为用户程序发出的read指令都需要进行等待（最少都需要等待数据拷贝的时间）</li>
+<li>异步IO：用户程序发送read，若数据未准备好，直接返回并继续执行。内核准备好数据后自动将数据进行拷贝，从内核拷贝到应用程序，当拷贝完成向应用程序发送消息通知。应用程序再调用read直接读取即可</li>
+</ul>
+<h3 id="Reactor"><a href="#Reactor" class="headerlink" title="Reactor"></a>Reactor</h3><ul>
+<li>非阻塞同步的网络IO多路复用</li>
+<li>redis，nginx，netty都采用这个模式设计的思想，同时Muduo网络库也采用这个模型</li>
+<li>实际上是IO多路复用的一层封装，收到事件后，根据事件类型分配给某个进程&#x2F;线程(Dispatch)</li>
+<li>Reactor主要由Reactor和处理资源池组成：<ul>
+<li>Reactor 负责监听和分发事件，事件类型包含连接事件、读写事件。可以单个reactor也可以多个</li>
+<li>处理资源池负责处理事件，如read -&gt; 业务逻辑 -&gt; send。可以单个进程&#x2F;线程，也可以多个进程&#x2F;线程</li>
+</ul>
+</li>
+<li>因此主要有下面几种模型：<ul>
+<li>单Reactor单进程&#x2F;线程: 不适合计算密集型的场景，只适用于业务处理非常快速的场景。如果一下子有大量请求访问，会比较慢，同时只有一个进程，无法利用多核CPU的性能。同时因为只有单进程，在业务处理时是不能处理其他事务的</li>
+<li>单Reactor多线程&#x2F;进程：可以利用多核CPU的性能。但是只有一个Reactor承担所有事件的通知和响应，在面对瞬间高并发请求时候是性能瓶颈</li>
+<li>多Reactor多进程&#x2F;线程（主要）</li>
+</ul>
+</li>
+</ul>
+<h3 id="多Reactor多进程-线程"><a href="#多Reactor多进程-线程" class="headerlink" title="多Reactor多进程&#x2F;线程"></a>多Reactor多进程&#x2F;线程</h3><div><img src="image/network2.png"></div>
+
+<ul>
+<li>主要工作流程：<ul>
+<li>主线程中的MainReactor对象通过select监控连接建立事件，收到事件后通过Acceptor对象中的accept获取连接，将新的连接分配给某个子线程;</li>
+<li>子线程中的SubReactor对象将MainReactor对象分配的连接加入select继续进行监听，并创建一个Handler用于处理连接的响应事件。</li>
+<li>如果有新的事件发生时，SubReactor对象会调用当前连接对应的Handler对象来进行响应。</li>
+<li>Handler对象通过read -&gt; 业务处理 -&gt; send的流程来完成完整的业务流程</li>
+</ul>
+</li>
+<li>优点和与其他模型对比：<ul>
+<li>主线程和子线程分工明确，主线程只负责接收新连接，子线程负责完成后续的业务处理</li>
+<li>主线程和子线程的交互很简单，主线程只需要把新连接传给子线程，子线程无须返回数据，直接就可以在子线程将处理结果发送给客户端</li>
+</ul>
+</li>
+</ul>
+<h3 id="Proactor"><a href="#Proactor" class="headerlink" title="Proactor"></a>Proactor</h3><ul>
+<li>异步网络模式，就如异步IO一样，Reactor感知的是就绪的可读写事件，而proactor感知的是已经完成的可读写事件</li>
+</ul>
+<div><img src="image/network3.png"></div>
+
+<ul>
+<li>工作过程<ul>
+<li>Proactor Initiator负责创建Proactor和Handler对象，并将Proactor和Handler都通过Asynchronous Operation Processor注册到内核;</li>
+<li>Asynchronous Operation Processor负责处理注册请求，并处理I&#x2F;O操作</li>
+<li>Asynchronous Operation Processor完成I&#x2F;O操作后通知Proactor</li>
+<li>Proactor根据不同的事件类型回调不同的Handler进行业务处理</li>
+<li>Handler完成业务处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h2><ul>
+<li>一致性哈希算法就很好地解决了分布式系统在扩容或者缩容时，发生过多的数据迁移的问题</li>
+<li>基本思路：将所有节点映射在一个哈希环上。当进行查询的时候，对查询键值进行哈希运算后，可以确定在环上的位置，此时向后顺时针找到的第一个节点就是想要找到的节点（当节点数量变化的时候，只影响后续第一个位置的节点映射关系，大大减小开销）</li>
+<li>在一致哈希算法中，如果增加或者移除一个节点，仅影响该节点在哈希环上顺时针相邻的后继节点，其它数据也不会受到影响（缺点是存在雪崩问题）</li>
+<li>为了提高均衡度，可以把向哈希环添加真实节点变为添加虚拟节点，虚拟节点会映射到真实节点。每个真实节点可以包含多个虚拟节点（如nginx中权重为1的节点有160个虚拟节点）<ul>
+<li>虚拟节点除了会提高节点的均衡度，还会提高系统的稳定性。当节点变化时，会有不同的节点共同分担系统的变化，因此稳定性更高。也可以为硬件配置更好的节点增加权重，比如对权重更高的节点增加更多的虚拟机节点即可</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/computer-basis/" rel="tag"><i class="fa fa-tag"></i> computer basis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/30/Go_note/" rel="prev" title="Go Notes">
+                  <i class="fa fa-angle-left"></i> Go Notes
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/01/Data%20Structure_Note/" rel="next" title="Data Structures Notes">
+                  Data Structures Notes <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Flynn Fu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/MSZ-006V" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
